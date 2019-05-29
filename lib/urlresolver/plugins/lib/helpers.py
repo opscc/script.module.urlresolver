@@ -60,6 +60,10 @@ def pick_source(sources, auto_pick=None):
         return sources[0][1]
     elif len(sources) > 1:
         if auto_pick:
+            try: #sort by video resolution; use the 'best'
+                sources = sorted(sources, key=lambda tup: int(tup[0]), reverse=True)
+            except:
+                pass
             return sources[0][1]
         else:
             result = xbmcgui.Dialog().select(common.i18n('choose_the_link'), [str(source[0]) if source[0] else 'Unknown' for source in sources])
